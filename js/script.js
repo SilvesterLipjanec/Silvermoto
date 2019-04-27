@@ -1,6 +1,6 @@
 (function(){
 
-    var parallax = document.querySelectorAll("#myCarousel"),
+    var parallax = document.querySelectorAll(".slower-move"),
         speed = 0.5;
 
     window.onscroll = function(){
