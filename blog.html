@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SILVER MOTO RACING</title>
+  <title>SILVER MOTO RACING - blog</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,28 +27,37 @@
 </head>
 
 <body>
-  <!-- Navigation-->
+  <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
       <div class="container">        
         <a class="navbar-brand" href="index.html"><img src="./img/logo_white.png" width="130" height="40"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="./blog.html">Blog</a>
+                <a class="nav-link" href="./index.html#aboutUs">O nás</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Log In</a>
+                <a class="nav-link" href="./index.html#riders">Jazdci</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html#sponsors">Sponzori</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./blog.html">Blog</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./contact.html">Kontakt</a>
+              </li>
           </ul>
         </div>
       </div>
     </nav>
 
   <!-- Page Header -->
-  <header class="masthead slower-move" style="background-image: url('img/home-bg.jpg')">
+  <header class="masthead slower-move" style="background-image: url('img/blog-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -69,19 +78,20 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-preview">
-            <a href="post.html">
+            <a href="./posts/post1-2019.html">
               <h2 class="post-title">
-                Man must explore, and this is exploration at its greatest
+                Blog post o blogu
               </h2>
               <h3 class="post-subtitle">
-                Problems look mighty small from 150 miles up
+                O tom, o čom si tu v budúcnosti budete môcť prečítať
               </h3>
             </a>
-            <p class="post-meta">Posted by
-              <a href="#">Start Bootstrap</a>
-              on September 24, 2019</p>
+            <p class="post-meta">Zverejnil
+              <a href="./index.html#riders">Silvester</a>
+              dňa 5. Mája 2019</p>
           </div>
           <hr>
+          <!--
           <div class="post-preview">
             <a href="post.html">
               <h2 class="post-title">
@@ -121,6 +131,7 @@
               on July 8, 2019</p>
           </div>
           <hr>
+          -->
           <!-- Pager -->
           <div class="clearfix">
             <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
@@ -129,45 +140,37 @@
       </div>
     </div>
   </section>
-  <hr>
+  
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
-        </div>
+ <!-- Footer -->
+<footer class="py-5 bg-black">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          <li class="list-inline-item">
+            <a href="https://www.facebook.com/silvermoto.eu/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x foot-circle"></i>
+                <i class="fab fa-facebook-f fa-stack-1x fa-inverse foot-icon"></i>
+              </span>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="https://instagram.com/silvermoto.eu/">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x foot-circle"></i>
+                <i class="fab fa-instagram fa-stack-1x fa-inverse foot-icon"></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+        <p class="copyright text-muted text-center">Copyright &copy; Silver Moto Racing 2019</p>
       </div>
     </div>
-  </footer>
-  
+  </div>
+</footer>
+  <!-- slower move script-->
   <script src="./js/script.js"></script>
 
   <!-- Bootstrap core JavaScript -->

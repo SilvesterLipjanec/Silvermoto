@@ -178,7 +178,7 @@ header.masthead .bg-circle-4 {
   height: 680px;
   z-index: -2;
 }
-section.background-white { 
+.background-white { 
   background-color: white;
   position: relative;
   z-index: 1;
@@ -281,4 +281,10 @@ ul.social-buttons li a {
   border-radius: 100%;
   outline: 0;
   background-color: #212529;
+}
+footer .foot-circle{
+ color: #f8f9fa;
+}
+footer .foot-icon{
+  color: black;
 }
