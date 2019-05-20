@@ -321,3 +321,6 @@ footer .foot-circle{
 footer .foot-icon{
   color: black;
 }
+html {
+  scroll-behavior: smooth;
+}

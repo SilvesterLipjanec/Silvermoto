@@ -418,3 +418,9 @@ footer .copyright {
 .meta {
   font-style: italic;
 }
+html {
+  scroll-behavior: smooth;
+}
+#sponsors-float{
+  position: absolute;
+}
