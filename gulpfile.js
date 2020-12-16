@@ -1,106 +1,85 @@
-"use strict";
-
-// Load plugins
-const autoprefixer = require("gulp-autoprefixer");
-const browsersync = require("browser-sync").create();
-const cleanCSS = require("gulp-clean-css");
-const del = require("del");
-const gulp = require("gulp");
-const header = require("gulp-header");
+const gulp = require('gulp');
+const imagemin = require('gulp-imagemin');
+const concat = require('gulp-concat');
+const terser = require('gulp-terser');
+const sourcemaps = require('gulp-sourcemaps');
+const postcss = require('gulp-postcss');
+const cssnano = require('cssnano');
+const autoprefixer = require('autoprefixer');
 const merge = require("merge-stream");
-const plumber = require("gulp-plumber");
-const rename = require("gulp-rename");
-const sass = require("gulp-sass");
+const { src, series, parallel, dest, watch } = require('gulp');
 
-// Load package.json for banner
-const pkg = require('./package.json');
+const jsPath = 'src/js/**/*.js';
+const cssPath = 'src/css/**/*.css';
 
-// Set the banner content
-const banner = ['/*!\n',
-  ' * Start Bootstrap - <%= pkg.title %> v<%= pkg.version %> (<%= pkg.homepage %>)\n',
-  ' * Copyright 2013-' + (new Date()).getFullYear(), ' <%= pkg.author %>\n',
-  ' * Licensed under <%= pkg.license %> (https://github.com/BlackrockDigital/<%= pkg.name %>/blob/master/LICENSE)\n',
-  ' */\n',
-  '\n'
-].join('');
-
-// BrowserSync
-function browserSync(done) {
-  browsersync.init({
-    server: {
-      baseDir: "./"
-    },
-    port: 3000
-  });
-  done();
+function copyHtml() {
+  return src('src/*.html').pipe(gulp.dest('dist'));
 }
 
-// BrowserSync reload
-function browserSyncReload(done) {
-  browsersync.reload();
-  done();
+function copyResources() {
+  return src('src/resources/*').pipe(gulp.dest('dist/resources'));
+}
+
+function copyResources() {
+  return src('src/resources/*').pipe(gulp.dest('dist/resources'));
+}
+
+function imgTask() {
+  return src('src/img/**/*').pipe(imagemin()).pipe(gulp.dest('dist/img'));
 }
 
 // Clean vendor
 function clean() {
-  return del(["./vendor/"]);
+  return del(["./dist/"]);
 }
 
 // Bring third party dependencies from node_modules into vendor directory
 function modules() {
   // Bootstrap
   var bootstrap = gulp.src('./node_modules/bootstrap/dist/**/*')
-    .pipe(gulp.dest('./vendor/bootstrap'));
+    .pipe(gulp.dest('dist/modules/bootstrap'));
   // jQuery
   var jquery = gulp.src([
       './node_modules/jquery/dist/*',
       '!./node_modules/jquery/dist/core.js'
     ])
-    .pipe(gulp.dest('./vendor/jquery'));
-  return merge(bootstrap, jquery);
+    .pipe(gulp.dest('dist/modules/jquery'));
+    
+  var fonts = gulp.src('./node_modules/font-awesome/*')
+        .pipe(gulp.dest('dist/modules/font-awesome'));
+
+  return merge(bootstrap, jquery, fonts);
 }
 
-// CSS task
-function css() {
-  return gulp
-    .src("./scss/**/*.scss")
-    .pipe(plumber())
-    .pipe(sass({
-      outputStyle: "expanded",
-      includePaths: "./node_modules",
-    }))
-    .on("error", sass.logError)
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
-    .pipe(header(banner, {
-      pkg: pkg
-    }))
-    .pipe(gulp.dest("./css"))
-    .pipe(rename({
-      suffix: ".min"
-    }))
-    .pipe(cleanCSS())
-    .pipe(gulp.dest("./css"))
-    .pipe(browsersync.stream());
+function jsTask() {
+  return src(jsPath)
+    .pipe(sourcemaps.init())
+    .pipe(concat('all.js'))
+    .pipe(terser())
+    .pipe(sourcemaps.write('.'))
+    .pipe(dest('dist/js'));
 }
 
-// Watch files
-function watchFiles() {
-  gulp.watch("./scss/**/*", css);
-  gulp.watch("./**/*.html", browserSyncReload);
+function cssTask() {
+  return src(cssPath)
+    .pipe(sourcemaps.init())
+    .pipe(concat('style.css'))
+    .pipe(postcss([autoprefixer(), cssnano()])) //not all plugins work with postcss only the ones mentioned in their documentation
+    .pipe(sourcemaps.write('.'))
+    .pipe(dest('dist/css'));
 }
 
-// Define complex tasks
-const vendor = gulp.series(clean, modules);
-const build = gulp.series(vendor, css);
-const watch = gulp.series(build, gulp.parallel(watchFiles, browserSync));
+function watchTask() {
+  watch([cssPath, jsPath], { interval: 1000 }, parallel(cssTask, jsTask));
+}
 
-// Export tasks
-exports.css = css;
-exports.clean = clean;
-exports.vendor = vendor;
-exports.build = build;
-exports.watch = watch;
-exports.default = build;
+exports.modules = modules;
+exports.copyResources = copyResources;
+exports.cssTask = cssTask;
+exports.jsTask = jsTask;
+exports.imgTask = imgTask;
+exports.copyHtml = copyHtml;
+exports.default = series(
+  parallel(copyHtml, copyResources, imgTask, jsTask, cssTask, modules),
+  watchTask
+);
