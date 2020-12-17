@@ -19,42 +19,12 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&amp;subset=latin-ext" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet">
-
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </head>
 
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-    <div class="container">        
-      <a class="navbar-brand" href="./index.html#headline"><img src="./img/logo_white.png" width="130" height="40"></a>
-      <button id="toggle-nav" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-              <a class="nav-link" href="./index.html#aboutUs">O nás</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="./index.html#riders">Jazdci</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./index.html#sponsors">Sponzori</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./posts/2-z-dane/">Podporte nás</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="./blog.html">Blog</a>
-            </li>
-          <li class="nav-item">
-              <a class="nav-link" href="./contact.html">Kontakt</a>
-            </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div id="header"></div>
   <!-- 
   <header class="masthead text-center text-white">
     <div class="masthead-content">
@@ -314,35 +284,15 @@
     </div>
   </section>
   
-  
-<!-- Footer -->
-<footer class="py-5 bg-black">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="https://www.facebook.com/silvermoto.eu/">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x foot-circle"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse foot-icon"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://instagram.com/silvermoto.eu/">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x foot-circle"></i>
-                  <i class="fab fa-instagram fa-stack-1x fa-inverse foot-icon"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted text-center">Copyright &copy; Silver Moto Racing 2019</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer -->
+<div id="footer"></div>
+
+  <script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+  </script> 
   <!-- nav toogle -->
   <script src="./js/all.js"></script>
   <!-- Bootstrap core JavaScript -->

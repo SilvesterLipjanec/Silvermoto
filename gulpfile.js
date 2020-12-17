@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const del = require("del");
 const imagemin = require('gulp-imagemin');
 const concat = require('gulp-concat');
 const terser = require('gulp-terser');
@@ -7,10 +8,28 @@ const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const merge = require("merge-stream");
+const browsersync = require("browser-sync").create();
 const { src, series, parallel, dest, watch } = require('gulp');
 
 const jsPath = 'src/js/**/*.js';
 const cssPath = 'src/css/**/*.css';
+
+// BrowserSync
+function browserSync(done) {
+  browsersync.init({
+    server: {
+      baseDir: "./dist"
+    },
+    port: 3000
+  });
+  done();
+}
+
+// BrowserSync reload
+function browserSyncReload(done) {
+  browsersync.reload();
+  done();
+}
 
 function copyHtml() {
   return src('src/*.html').pipe(gulp.dest('dist'));
@@ -69,17 +88,21 @@ function cssTask() {
     .pipe(dest('dist/css'));
 }
 
-function watchTask() {
-  watch([cssPath, jsPath], { interval: 1000 }, parallel(cssTask, jsTask));
+// Watch files
+function watchFiles() {
+  gulp.watch("./src/css/**/*", cssTask);
+  gulp.watch("./src/**/*.html",gulp.series(copyHtml,browserSyncReload));
 }
 
+const vendor = gulp.series(clean, modules);
+const build = gulp.series(vendor, gulp.parallel(cssTask, jsTask, imgTask, copyResources, copyHtml));
+const watchTask = gulp.series(build, gulp.parallel(watchFiles, browserSync));
+
+exports.browserSync = browserSync;
 exports.modules = modules;
 exports.copyResources = copyResources;
 exports.cssTask = cssTask;
 exports.jsTask = jsTask;
 exports.imgTask = imgTask;
 exports.copyHtml = copyHtml;
-exports.default = series(
-  parallel(copyHtml, copyResources, imgTask, jsTask, cssTask, modules),
-  watchTask
-);
+exports.default = watchTask;
